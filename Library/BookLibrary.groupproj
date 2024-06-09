@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{DF6F51AC-2832-46D8-A13D-35923C46C304}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="DomainMode.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="DomainMode">
+        <MSBuild Projects="DomainMode.cbproj"/>
+    </Target>
+    <Target Name="DomainMode:Clean">
+        <MSBuild Projects="DomainMode.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DomainMode:Make">
+        <MSBuild Projects="DomainMode.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="DomainMode"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="DomainMode:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="DomainMode:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

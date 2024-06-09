@@ -1,0 +1,49 @@
+#ifndef BOOK_H
+#define BOOK_H
+
+#include <string>
+#include <vector>
+#include <ctime>
+
+class Book {
+public:
+    Book(const std::string& title, const std::string& author, const std::string& isbn);
+
+    std::string getTitle() const;
+    std::string getAuthor() const;
+    std::string getIsbn() const;
+    std::time_t getDueDate() const;
+    std::time_t getReturnDate() const;
+
+    void setTitle(const std::string& title);
+    void setAuthor(const std::string& author);
+    void setIsbn(const std::string& isbn);
+    void setDueDate(std::time_t dueDate);
+    void setReturnDate(std::time_t returnDate);
+
+    bool isOverdue() const;
+private:
+    std::string title;
+    std::string author;
+    std::string isbn;
+    std::time_t dueDate;
+    std::time_t returnDate;
+};
+
+class BookHandler {
+public:
+    BookHandler(double fineRate = 0.5);
+
+    void addBook(const Book& book);
+    void removeBook(const std::string& isbn);
+    std::vector<Book> searchBooks(const std::string& title);
+    const std::vector<Book>& getAllBooks() const;
+    double calculateFine(const Book& book) const;
+
+private:
+    std::vector<Book> books;
+    double fineRate;
+};
+
+#endif // BOOK_H
+

@@ -1,0 +1,60 @@
+#include "Book.h"
+#include <algorithm>
+#include <cmath>
+
+Book::Book(const std::string& title, const std::string& author, const std::string& isbn)
+    : title(title), author(author), isbn(isbn), dueDate(0), returnDate(0) {}
+
+std::string Book::getTitle() const { return title; }
+std::string Book::getAuthor() const { return author; }
+std::string Book::getIsbn() const { return isbn; }
+std::time_t Book::getDueDate() const { return dueDate; }
+std::time_t Book::getReturnDate() const { return returnDate; }
+
+void Book::setTitle(const std::string& title) { this->title = title; }
+void Book::setAuthor(const std::string& author) { this->author = author; }
+void Book::setIsbn(const std::string& isbn) { this->isbn = isbn; }
+void Book::setDueDate(std::time_t dueDate) { this->dueDate = dueDate; }
+void Book::setReturnDate(std::time_t returnDate) { this->returnDate = returnDate; }
+
+bool Book::isOverdue() const {
+    if (returnDate == 0) {
+        return std::time(0) > dueDate; // if not returned, compare with current time
+    }
+    return returnDate > dueDate; // Compare return date with due date
+}
+
+BookHandler::BookHandler(double fineRate) : fineRate(fineRate) {}
+
+void BookHandler::addBook(const Book& book) {
+    books.push_back(book);
+}
+
+void BookHandler::removeBook(const std::string& isbn) {
+    books.erase(std::remove_if(books.begin(), books.end(), [&](const Book& book) {
+        return book.getIsbn() == isbn;
+    }), books.end());
+}
+
+std::vector<Book> BookHandler::searchBooks(const std::string& title) {
+    std::vector<Book> result;
+    for (const auto& book : books) {
+        if (book.getTitle().find(title) != std::string::npos) {
+            result.push_back(book);
+        }
+    }
+    return result;
+}
+
+const std::vector<Book>& BookHandler::getAllBooks() const {
+    return books;
+}
+
+double BookHandler::calculateFine(const Book& book) const {
+    if (book.isOverdue()) {
+        std::time_t overdueDays = std::difftime(std::time(0), book.getReturnDate()) / (60 * 60 * 24);
+        return std::ceil(overdueDays) * fineRate; // Calculate fine based on overdue days
+    }
+    return 0.0; // No fine if not overdue
+}
+

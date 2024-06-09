@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2024/06/07 18:37:31.474,D:\Embarcadero Projects\Library Management System\Library\ProjectGroup1.groupproj=C:\Users\User\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj</Transaction>
+    <Transaction>2024/06/07 18:45:21.087,D:\Embarcadero Projects\Library Management System\Library\BookLibrary.groupproj=D:\Embarcadero Projects\Library Management System\Library\ProjectGroup1.groupproj</Transaction>
+  </Transactions>
+  <Default.Personality>
+    <Projects ActiveProject="D:\Embarcadero Projects\Library Management System\Library\DomainMode.cbproj"/>
+  </Default.Personality>
+</BorlandProject>
