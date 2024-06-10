@@ -1,4 +1,4 @@
-﻿#pragma hdrstop
+#pragma hdrstop
 
 #include "Book.h"
 #include <algorithm>

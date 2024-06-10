@@ -19,6 +19,17 @@ __published:	// IDE-managed Components
 	TEdit *InputField;
 	TButton *AddBtn;
 	TListBox *BooksList;
+	TButton *SearchBtn;
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TLabel *Label4;
+	TEdit *InputAuthor;
+	TEdit *InputTitle;
+	TEdit *InputISBN;
+	TEdit *InputDays;
+	TButton *BorrowBtn;
+	TButton *RerurnBtn;
 	void __fastcall AddBtnClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
