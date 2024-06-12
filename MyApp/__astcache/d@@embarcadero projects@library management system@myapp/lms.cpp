@@ -19,11 +19,30 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::AddBtnClick(TObject *Sender)
 {
-	std::string taskText = AnsiString(InputField->Text).c_str();
-	Book book(taskText, "NoName", 123, true);
-	bookHandler.addBook(book);
+	std::string taskText = AnsiString(InputTitle->Text).c_str();
+	std::string author = AnsiString(InputAuthor->Text).c_str();
+	int ISBN = StrToINT(InputISBN->Text);
+	int numberOfDays = StrToInt(InputDays->Text);
+	bool available = true;
 
-	BooksList->Items->Add(InputField->Text);
+	TADOQuery *query = new TADOQuery(NULL);
+	query->Connection = ADOConnection1;
+	query->SQL->Text = "insert into books(title, author, ISBN, available, purchaseDate, dueDate)"
+						"values(:title, :author, :ISBN, :available, :purchaseDate, :dueDate)";
+	query->Parameters->ParamByName("title")->Value = title.c_str();
+	query->parameters->ParamByName("author")->Value = author.c_str();
+	query->Parameters->ParamByName("ISBN")->Value = ISBN;
+	query->Parameters->ParamByName("available")->Value = available;
+	query->Parameters->ParamByName("aurchaseDate")->Value = Now(); // Use current date and time
+	query->Parameters->ParamByName("dueDate")->Value = IncDay(Now(), numberOfDays); // Set due date based on the number of days
+
+	try{
+		query->ExecSQL();
+	}catch(Exception &e) {
+		ShowMessage("Errot adding book to database: " + e.Message);
+	}
+
+    delete query;
 }
 //---------------------------------------------------------------------------
 
